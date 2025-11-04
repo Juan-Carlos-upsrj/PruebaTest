@@ -2,9 +2,9 @@
 
 Este es el código fuente para el panel de administración de un curso universitario.
 
-## ¿Cómo publicar la página en un hosting con cPanel (ej. `yeici.com.mx`)?
+## ¿Cómo publicar la página en un subdirectorio (ej. `yeici.com.mx/alumnos`)?
 
-El proceso consiste en "compilar" el proyecto en tu computadora para generar los archivos web estáticos, y luego subir esos archivos a tu servidor a través del panel de control de cPanel.
+El proceso consiste en "compilar" el proyecto con la ruta correcta y luego subir los archivos a una carpeta específica en tu servidor de cPanel.
 
 ### Requisitos
 
@@ -20,38 +20,36 @@ El proceso consiste en "compilar" el proyecto en tu computadora para generar los
     npm install
     ```
 
-2.  **Compilar el Proyecto (Crear la Versión Publicable):**
-    En la misma terminal, ejecuta el siguiente comando. Esto creará una nueva carpeta llamada `build` que contiene tu sitio web listo para ser publicado.
+2.  **Verificar `package.json`:**
+    Asegúrate de que el archivo `package.json` contenga la línea `"homepage": "/alumnos"`. Esto es crucial.
+
+3.  **Compilar el Proyecto (Crear la Versión Publicable):**
+    En la misma terminal, ejecuta el siguiente comando. Esto creará una nueva carpeta llamada `build` que contiene tu sitio web listo para ser publicado en el subdirectorio.
     ```bash
     npm run build
     ```
 
-3.  **Subir los Archivos a cPanel:**
+4.  **Subir los Archivos a cPanel:**
     a. Inicia sesión en tu cPanel y abre el **"Administrador de Archivos"** (`File Manager`).
     b. Navega a la carpeta raíz de tu dominio, que usualmente es **`public_html`**.
-    c. Sube el **contenido** de la carpeta `build` que generaste en el paso anterior a `public_html`. La forma más fácil es comprimir el contenido en un `.zip`, subirlo y luego usar la función "Extraer" de cPanel.
+    c. Dentro de `public_html`, crea una **Nueva Carpeta** y llámala `alumnos`.
+    d. Abre esta nueva carpeta `alumnos`.
+    e. Sube el **contenido** de la carpeta `build` que generaste en el paso anterior a esta carpeta `alumnos`.
 
-4.  **Configurar el Servidor para React (¡Paso Crucial!):**
-    a. Dentro de `public_html`, crea un nuevo archivo llamado `.htaccess`.
-    b. Edita este archivo y pega el siguiente contenido. Esto soluciona los errores 404 al recargar sub-páginas.
+5.  **Configurar el `.htaccess` DENTRO de `/alumnos` (¡Paso Crucial!):**
+    a. Dentro de tu carpeta `alumnos` en cPanel, crea un nuevo archivo llamado `.htaccess`.
+    b. Edita este archivo y pega el siguiente contenido. Nota que `RewriteBase` apunta a `/alumnos/`.
     ```apache
     <IfModule mod_rewrite.c>
       RewriteEngine On
-      RewriteBase /
+      RewriteBase /alumnos/
       RewriteRule ^index\.html$ - [L]
       RewriteCond %{REQUEST_FILENAME} !-f
       RewriteCond %{REQUEST_FILENAME} !-d
       RewriteCond %{REQUEST_FILENAME} !-l
-      RewriteRule . /index.html [L]
+      RewriteRule . /alumnos/index.html [L]
     </IfModule>
     ```
 
-5.  **¡Listo!**
-    Visita tu dominio. La página debería cargar correctamente.
-
-### ¿Cómo actualizar la página?
-
-Simplemente repite los pasos 2 y 3. Cada vez que hagas cambios en el código:
-1.  Ejecuta `npm run build` en tu computadora.
-2.  Borra los archivos antiguos de tu `public_html` en cPanel.
-3.  Sube el nuevo contenido de tu carpeta `build`.
+6.  **¡Listo!**
+    Visita `https://yeici.com.mx/alumnos`. La página debería cargar y funcionar correctamente.

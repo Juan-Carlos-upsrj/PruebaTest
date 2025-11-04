@@ -2,6 +2,7 @@
   "name": "plataforma-educativa-docente",
   "version": "1.0.0",
   "private": true,
+  "homepage": "/alumnos",
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0"

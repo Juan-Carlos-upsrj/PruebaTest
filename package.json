@@ -2,7 +2,6 @@
   "name": "plataforma-educativa-docente",
   "version": "1.0.0",
   "private": true,
-  "homepage": "/alumnos",
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
@@ -10,13 +9,13 @@
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "copyfiles": "^2.4.1",
-    "esbuild": "^0.23.0",
-    "rimraf": "^5.0.7",
-    "typescript": "^5.5.3"
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.3"
   },
   "scripts": {
-    "start": "esbuild index.tsx --bundle --outfile=dist/bundle.js --serve --servedir=.",
-    "build": "rimraf build && esbuild index.tsx --bundle --outfile=build/static/js/bundle.js --minify --sourcemap && copyfiles -u 1 index.html build"
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build"
   }
 }

@@ -1,0 +1,5 @@
+{
+  "name": "Plataforma Educativa - Panel de Docente",
+  "description": "Un panel de administración completo para que los docentes gestionen sus cursos, incluyendo contenido, calificaciones, estudiantes y comunicación. Inspirado en plataformas LMS como Canvas con una estética moderna.",
+  "requestFramePermissions": []
+}

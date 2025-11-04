@@ -10,11 +10,13 @@
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "copyfiles": "^2.4.1",
     "esbuild": "^0.23.0",
+    "rimraf": "^5.0.7",
     "typescript": "^5.5.3"
   },
   "scripts": {
     "start": "esbuild index.tsx --bundle --outfile=dist/bundle.js --serve --servedir=.",
-    "build": "esbuild index.tsx --bundle --outfile=build/static/js/bundle.js --minify --sourcemap"
+    "build": "rimraf build && esbuild index.tsx --bundle --outfile=build/static/js/bundle.js --minify --sourcemap && copyfiles -u 1 index.html build"
   }
 }
